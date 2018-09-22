@@ -22,8 +22,8 @@ linear_model <- function(formula, data) {
   fit_model<-list()
   # calculate coefficients
   fit_model$coefficients<-qr.coef(xqr,y)
-  fit_model$residuals<-NA
   fit_model$fitted.values<-NA
+  fit_model$residuals<-NA
   fit_model$rank<-NA
   fit_model$weights<-NA
   fit_model$df.residual<-NA
@@ -34,8 +34,7 @@ linear_model <- function(formula, data) {
   fit_model$offset<-NA
   fit_model$x<-x
   fit_model$y<-y
-  fit_model$model<-NA
-  fit_model$na.action<-NA
+  fit_model$model<-formula
   fit_model$qr<-qr(x)
   class(fit_model)<-"lm"
   return(fit_model)

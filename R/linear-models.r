@@ -1,7 +1,7 @@
 
 #' Fit a linear model
 #'
-#' @description This function passes parameters to the lm function.
+#' @description This function passes parameters to the linear_model function.
 #' @param formula a formula
 #' @param data a data.frame
 #' @return An lm object

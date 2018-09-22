@@ -36,7 +36,7 @@ linear_model <- function(formula, data) {
   fit_model$y<-y
   fit_model$model<-NA
   fit_model$na.action<-NA
-  fiy_model$qr<-qr(x)
+  fit_model$qr<-qr(x)
   class(fit_model)<-"lm"
   return(fit_model)
 }

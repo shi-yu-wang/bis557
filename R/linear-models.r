@@ -15,7 +15,8 @@ linear_model <- function(formula, data) {
   # If factor variable exists, change factor variables to numeric variables
   colno<-c()
   for (i in 1:ncol(data)) {
-    if (class(data[,i])=="factor"){
+    if (class(data[,i]) != "numeric"){
+      data[,i]<-as.factor(data[,i])
       colno<-c(colno,i)
       f<-levels(data[,i])
       data[,i]<-as.character(data[,i])

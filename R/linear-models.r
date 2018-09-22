@@ -57,20 +57,6 @@ linear_model <- function(formula, data) {
     names(coefficients)<-c("(Intercept)",xvar)
     fit_model<-list()
     fit_model$coefficients<-coefficients
-    fit_model$residuals=c()
-    fit_model$fitted.values=c()
-    fit_model$rank=c()
-    fit_model$weights=c()
-    fit_model$df.residual=c()
-    fit_model$call=c()
-    fit_model$terms=c()
-    fit_model$contrasts=c()
-    fit_model$xlevels=c()
-    fit_model$offset=c()
-    fit_model$y=c()
-    fit_model$x=c()
-    fit_model$model=c()
-    fit_model$na.action=c()
     class(fit_model)<-"lm"
   } else {
   resp<-attr(tm, "response")
@@ -84,20 +70,6 @@ linear_model <- function(formula, data) {
   names(coefficients)<-c("(Intercept)",xvar)
   fit_model<-list()
   fit_model$coefficients<-coefficients
-  fit_model$residuals=c()
-  fit_model$fitted.values=c()
-  fit_model$rank=c()
-  fit_model$weights=c()
-  fit_model$df.residual=c()
-  fit_model$call=c()
-  fit_model$terms=c()
-  fit_model$contrasts=c()
-  fit_model$xlevels=c()
-  fit_model$offset=c()
-  fit_model$y=c()
-  fit_model$x=c()
-  fit_model$model=c()
-  fit_model$na.action=c()
   class(fit_model)<-"lm"
   }
   return(fit_model)

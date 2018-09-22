@@ -19,7 +19,7 @@ linear_model <- function(formula, data) {
   # qr decomposition
   xqr<-qr(x)
   # list to contain lm items
-  fit_linear_model<-list()
+  fit_model<-list()
   # calculate coefficients
   fit_model$coefficients<-qr.coef(xqr,y)
   fit_model$residuals<-NA

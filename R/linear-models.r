@@ -60,9 +60,9 @@ linear_model <- function(formula, data) {
     fit_model$coefficients<-coefficients
     fit_model$fitted.values<-x %*% fit_model$coefficients
     fit_model$residuals<-fit_model$y - fit_model$fitted.values
-    fit_model$rank<-ncol(x)
+    fit_model$rank<-NULL
     fit_model$weights<-NULL
-    fit_model$df.residual<-nrow(x)-ncol(x)
+    fit_model$df.residual<-NULL
     fit_model$call<-NULL
     fit_model$terms<-terms(x = formula, data = data)
     fit_model$contrasts<-NULL
@@ -86,9 +86,9 @@ linear_model <- function(formula, data) {
   fit_model$coefficients<-coefficients
   fit_model$fitted.values<-x %*% fit_model$coefficients
   fit_model$residuals<-fit_model$y - fit_model$fitted.values
-  fit_model$rank<-ncol(x)
+  fit_model$rank<-NULL
   fit_model$weights<-NULL
-  fit_model$df.residual<-nrow(x)-ncol(x)
+  fit_model$df.residual<-NULL
   fit_model$call<-NULL
   fit_model$terms<-terms(x = formula, data = data)
   fit_model$contrasts<-NULL

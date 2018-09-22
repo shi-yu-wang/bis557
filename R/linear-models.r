@@ -21,8 +21,8 @@ linear_model <- function(formula, data) {
   fit_model=list()
   # calculate coefficients
   fit_model$coefficients=qr.coef(xqr,y)
-  fit_model$fitted.values=NULL
-  fit_model$residuals=NULL
+  fit_model$fitted.values=x %*% fit_model$coefficients
+  fit_model$residuals=y - fit_model$fitted.values
   fit_model$rank=NULL
   fit_model$weights=NULL
   fit_model$df.residual=NULL

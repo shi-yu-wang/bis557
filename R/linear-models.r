@@ -58,7 +58,7 @@ linear_model <- function(formula, data) {
     fit_model<-list()
     fit_model$coefficients<-coefficients
     fit_model$residuals<-NA
-    fit_model$fitted.values<-NA
+    fit_model$fitted.values<-x %*% as.matrix(fit_model$coefficients)
     fit_model$rank<-NA
     fit_model$weights<-NA
     fit_model$df.residual<-NA
@@ -86,7 +86,8 @@ linear_model <- function(formula, data) {
   fit_model<-list()
   fit_model$coefficients<-coefficients
   fit_model$residuals<-NA
-  fit_model$fitted.values<-NA
+  fit_model$fitted.values<-as.vector(x %*% as.matrix(fit_model$coefficients))
+  names(fit_model$fitted.values)<-as.character(seq(1,nrow(data)))
   fit_model$rank<-NA
   fit_model$weights<-NA
   fit_model$df.residual<-NA

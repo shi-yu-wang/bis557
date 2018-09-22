@@ -26,7 +26,7 @@ linear_model <- function(formula, data) {
   fit_model$rank<-col(x)
   fit_model$weights<-NA
   fit_model$df.residual<-nrow(x)-ncol(x)
-  fit_model$call<-NA
+  fit_model$call<-call("linear_model", formula)
   fit_model$terms<-terms(x = formula, data = data)
   fit_model$contrasts<-NA
   fit_model$xlevels<-NA

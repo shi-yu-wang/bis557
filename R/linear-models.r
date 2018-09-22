@@ -30,6 +30,7 @@ linear_model <- function(formula, data) {
       }
     }
   }
+  # remove original factor variables
   if (length(colno>0)){
     data<-data[,-colno]
   }

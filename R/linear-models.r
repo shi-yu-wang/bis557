@@ -10,14 +10,32 @@
 #' summary(fit)
 #' @export
 linear_model <- function(formula, data) {
-  # add intercept variable
   intercept<-as.data.frame(rep(1,nrow(data)))
   formula_check<-as.character(formula)
-  # when all variable in dataset are included
+  # If factor variable exists, change factor variables to numeric variables
+  colno<-c()
+  for (i in 1:ncol(data)) {
+    if (class(data[,i])=="factor"){
+      colno<-c(colno,i)
+      f<-levels(data[,i])
+      data[,i]<-as.character(data[,i])
+      for (j in 2:length(f)) {
+        v<-data[,i]
+        v[v==f[j]]<-1
+        v[v!="1"]<-0
+        v<-as.numeric(v)
+        v<-as.data.frame(v)
+        colnames(v)<-paste(colnames(data)[i], f[j],sep = "")
+        data<-cbind(data,v)
+      }
+    }
+  }
+  if (length(colno>0)){
+    data<-data[,-colno]
+  }
   if ("." %in% formula_check){
     y<-as.matrix((data[,match(formula_check[2],colnames(data))]))
     x<-as.data.frame(data[,-match(formula_check[2],colnames(data))])
-    # extract column names of variables
     xvar<-colnames(x)
     x<-as.matrix(cbind(intercept,x))
     svd_output <- svd(x)
@@ -29,13 +47,11 @@ linear_model <- function(formula, data) {
     coefficients <- as.vector(pseudo_inv %*% y)
     names(coefficients)<-c("(Intercept)",xvar)
     linear_model<-list(coefficients=coefficients)
-  # when only selected variables are included
   } else {
   tm<-terms(formula)
   var<-as.character(attr(tm, "variables"))[-1]
   resp<-attr(tm, "response")
   yvar<-var[resp]
-  # extract column names
   xvar<-var[-resp]
   y<-as.matrix((data[,match(yvar,colnames(data))]))
   x<-as.data.frame(data[,match(xvar,colnames(data))])

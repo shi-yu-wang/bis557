@@ -71,6 +71,7 @@ linear_model <- function(formula, data) {
     fit_model$y<-y
     fit_model$x<-y
     fit_model$model<-formula
+    fit_model$qr<-qr(x)
     class(fit_model)<-"lm"
     return(fit_model)
   } else {
@@ -97,6 +98,7 @@ linear_model <- function(formula, data) {
   fit_model$y<-y
   fit_model$x<-x
   fit_model$model<-formula
+  fit_model$qr<-qr(x)
   class(fit_model)<-"lm"
   return(fit_model)
   }

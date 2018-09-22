@@ -21,8 +21,7 @@ linear_model <- function(formula, data) {
   # list to contain lm items
   fit_model<-list()
   # calculate coefficients
-  coefficients<-qr.coef(xqr,y)
-  fit_model$coefficients<-coefficients
+  fit_model$coefficients<-qr.coef(xqr,y)
   fit_model$residuals<-NA
   fit_model$fitted.values<-NA
   fit_model$rank<-NA

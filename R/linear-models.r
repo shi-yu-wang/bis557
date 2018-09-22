@@ -23,11 +23,11 @@ linear_model <- function(formula, data) {
   fit_model$coefficients=qr.coef(xqr,y)
   fit_model$fitted.values=x %*% fit_model$coefficients
   fit_model$residuals=fit_model$y - fit_model$fitted.values
-  fit_model$rank=NULL
+  fit_model$rank=col(x)
   fit_model$weights=NULL
-  fit_model$df.residual=NULL
+  fit_model$df.residual=nrow(x)-ncol(x)
   fit_model$call=call("linear_model",formula)
-  fit_model$terms=NULL
+  fit_model$terms=terms(x = formula, data = data)
   fit_model$contrasts=NULL
   fit_model$xlevels=NULL
   fit_model$offset=NULL

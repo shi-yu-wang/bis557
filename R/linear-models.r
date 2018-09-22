@@ -18,9 +18,10 @@ linear_model <- function(formula, data) {
   y<-data[,var[1]]
   # qr decomposition
   xqr<-qr(x)
+  # list to contain lm items
+  fit_model<-list()
   # calculate coefficients
   coefficients<-qr.coef(xqr,y)
-  fit_model<-list()
   fit_model$coefficients<-coefficients
   fit_model$residuals<-NA
   fit_model$fitted.values<-NA

@@ -10,13 +10,6 @@
 #' summary(fit)
 #' @export
 linear_model <- function(formula, data) {
-  #generate "lm" class by a random linear regression
-  d1 <- data.frame(x1 = runif(100, 0, 1),
-             x2 = runif(100, 0, 1),
-             x3 = runif(100, 0, 1),
-             y1 = runif(100, 0, 1))
-  m1 <- lm(y1 ~ x1 + x2 + x3, data = d1)
-  
   intercept<-as.data.frame(rep(1,nrow(data)))
   formula_check<-as.character(formula)
   if ("." %in% formula_check){
@@ -62,8 +55,8 @@ linear_model <- function(formula, data) {
     xqr<-qr(x)
     coefficients<-as.vector(qr.coef(xqr,y))
     names(coefficients)<-c("(Intercept)",xvar)
-    m1$coefficients<-coefficients
-    linear_model<-m1
+    fit_model<-list(coefficients=coefficients,residuals=c(),fitted.values=c(),rank=c(),weights=c(),df.residual=c(),call=c(),terms=c(),contrasts=c(),xlevels=c(),offset=c(),y=c(),x=c(),model=c(),na.action=c())
+    class(fit_model)<-"lm"
   } else {
   resp<-attr(tm, "response")
   yvar<-var[resp]
@@ -74,7 +67,8 @@ linear_model <- function(formula, data) {
   xqr<-qr(x)
   coefficients<-as.vector(qr.coef(xqr,y))
   names(coefficients)<-c("(Intercept)",xvar)
-  m1$coefficients<-coefficients
-  linear_model<-m1
+  fit_model<-list(coefficients=coefficients,residuals=c(),fitted.values=c(),rank=c(),weights=c(),df.residual=c(),call=c(),terms=c(),contrasts=c(),xlevels=c(),offset=c(),y=c(),x=c(),model=c(),na.action=c())
+  class(fit_model)<-"lm"
   }
+  return(fit_model)
 }

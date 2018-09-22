@@ -72,6 +72,7 @@ linear_model <- function(formula, data) {
     fit_model$model<-NA
     fit_model$na.action<-NA
     class(fit_model)<-"lm"
+    return(fit_model)
   } else {
   resp<-attr(tm, "response")
   yvar<-var[resp]
@@ -99,6 +100,6 @@ linear_model <- function(formula, data) {
   fit_model$model<-NA
   fit_model$na.action<-NA
   class(fit_model)<-"lm"
-  }
   return(fit_model)
+  }
 }

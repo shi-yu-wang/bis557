@@ -43,7 +43,7 @@ linear_model <- function(formula, data) {
       }
     }
   }
-  if (length(colno>0)){
+  if (length(colno)>0){
     data<-data[,-colno]
   }
   # calculate coefficients

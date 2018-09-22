@@ -19,7 +19,7 @@ linear_model <- function(formula, data) {
   # qr decomposition
   xqr<-qr(x)
   # calculate coefficients
-  coefficients<-as.vector(qr.coef(xqr,y))
+  coefficients<-qr.coef(xqr,y)
   fit_model<-list()
   fit_model$coefficients<-coefficients
   fit_model$residuals<-NA
@@ -27,15 +27,16 @@ linear_model <- function(formula, data) {
   fit_model$rank<-NA
   fit_model$weights<-NA
   fit_model$df.residual<-NA
-  fit_model$call<-NA
+  fit_model$call<-call("linear_model",formula)
   fit_model$terms<-NA
   fit_model$contrasts<-NA
   fit_model$xlevels<-NA
   fit_model$offset<-NA
-  fit_model$y<-NA
-  fit_model$x<-NA
+  fit_model$x<-x
+  fit_model$y<-y
   fit_model$model<-NA
   fit_model$na.action<-NA
+  fiy_model$qr<-qr(x)
   class(fit_model)<-"lm"
   return(fit_model)
 }

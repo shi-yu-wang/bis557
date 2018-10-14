@@ -4,6 +4,7 @@
 #' @param formula a formula
 #' @param data a data.frame
 #' @return An ridge_reg object
+#' @import stats MASS graphics
 #' @examples
 #' fit <- ridge_reg(Sepal.Length ~., 1.2,iris)
 #' @export

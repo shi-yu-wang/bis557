@@ -14,3 +14,4 @@ library(bis557)
 fit <- linear_model(Sepal.Length ~., iris)
 summary(fit)
 ```
+Now, another model (ridge regression) has been developed

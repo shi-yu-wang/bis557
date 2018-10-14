@@ -33,11 +33,7 @@ cal_mse<-function(formula,lambda,train_data,test_data){
   mse
 }
 
-# infer the range of lambda values (get hints from Wenfeng Zhang, credits to him)
-x<-as.matrix(model.matrix(y ~.,ridge_train))
-svd_obj<-svd(x)
-lbd_max<-max((svd_obj[["d"]])^2)
-lambda<-seq(0,lbd_max,0.5)
+lambda<-seq(0,100,0.5)
 mse_test<-sapply(lambda, function(lambda)cal_mse(y~.,lambda,ridge_train,ridge_test))
 min(mse_test)
 

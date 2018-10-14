@@ -33,6 +33,7 @@ cal_mse<-function(formula,lambda,train_data,test_data){
   mse
 }
 
+# Try lambda from 0 to 100
 lambda<-seq(0,100,0.5)
 mse_test<-sapply(lambda, function(lambda)cal_mse(y~.,lambda,ridge_train,ridge_test))
 min(mse_test)

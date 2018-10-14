@@ -25,7 +25,7 @@ data("ridge_test")
 
 # Calculate MSE
 cal_mse<-function(formula,lambda,train_data,test_data){
-  coeff<-ridge_reg(formula,lambda,train_data)
+  coeff<-ridge_reg(formula,lambda,train_data)$coefficients
   x_test<-as.matrix(model.matrix(formula, test_data))
   y_test<-test_data[,as.character(formula)[2]]
   test_pred<-x_test %*% coeff

@@ -26,7 +26,7 @@ data("ridge_test")
 # Calculate MSE
 cal_mse<-function(formula,lambda,train_data,test_data){
   coeff<-ridge_reg(formula,lambda,train_data)
-  x_test<-model.matrix(formula, test_data)
+  x_test<-as.matrix(model.matrix(formula, test_data))
   y_test<-test_data[,as.character(formula)[2]]
   test_pred<-x_test %*% coeff
   mse<-mean(sum(y_test-test_pred)^2)
@@ -34,7 +34,7 @@ cal_mse<-function(formula,lambda,train_data,test_data){
 }
 
 # infer the range of lambda values (get hints from Wenfeng Zhang, credits to him)
-x<-model.matrix(y ~.,ridge_train)
+x<-as.matrix(model.matrix(y ~.,ridge_train))
 svd_obj<-svd(x)
 lbd_max<-max((svd_obj[["d"]])^2)
 lambda<-seq(0,lbd_max,0.5)

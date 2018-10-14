@@ -3,10 +3,11 @@
 #' @description This function passes parameters to the ridge_reg function.
 #' @param formula a formula
 #' @param data a data.frame
+#' @param lambda a numeric parameter
 #' @return An ridge_reg object
 #' @import stats MASS graphics
 #' @examples
-#' fit <- ridge_reg(Sepal.Length ~., 1.2,iris)
+#' fit <- ridge_reg(Sepal.Length ~., 1.5,iris)
 #' @export
 
 

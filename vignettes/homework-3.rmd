@@ -1,10 +1,10 @@
 ---
-title: "Homework 5"
+title: "Homework 3"
 author: "Shiyu Wang"
-output: pdf_document
+output:
   html_document:
-    df_print: paged
-Imports: glmnet,Matrix
+    self_contained: yes
+    toc: true
 ---
 <!--
 %\VignetteEngine{knitr::rmarkdown}

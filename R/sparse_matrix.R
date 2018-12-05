@@ -33,15 +33,27 @@ sparse.matrix<-function(i,j,x,dims=c(max(i),max(j))){
 }
 
 # Add
-`+.sparse.matrix` <- function(a, b){
+#' @description This function adds two sparse matrices.  
+#' @param a A list describing a sparse matrix.
+#' @param b A list describing a sparse matrix.
+#' @return a sparse.matrix object
+#' @examples
+#' a <- sparse.matrix(i = c(1, 2), j = c(1, 3), x = c(3, 1))
+#' b <- sparse.matrix(i = c(1, 2), j = c(3, 1), x = c(4.4, 1.2))
+#' sparse_add(a, b)
+#' @export
+sparse_matrix_add<-function(a, b){
 if (!identical(a[[2]], b[[2]]))
 stop("dimensions not match")
-  c<-merge(a[[1]], b[[1]], by = c("i", "j"), all = TRUE, suffixes = c("1", "2"))
-  c$x1[is.na(c$x1)] <- 0
-  c$x2[is.na(c$x2)] <- 0
-  c$x <- c$x1 + c$x2
-  c[, c("i", "j", "x")]
-  sparse.matrix(c$i, c$j, c$x, dims = a[[2]])
+  c<-merge(a[[1]], b[[1]], by = c("i", "j"),all = TRUE,suffixes = c("1", "2"))
+  c$x1[is.na(c$x1)]<-0
+  c$x2[is.na(c$x2)]<-0
+  c$x<-c$x1+c$x2
+  c[,c("i","j","x")]
+  sparse.matrix(c$i,c$j,c$x,dims=a[[2]])
+}
+`+.sparse.matrix` <- function(x, y) {
+  sparse_matrix_add(x, y)
 }
 
 # Multiply 

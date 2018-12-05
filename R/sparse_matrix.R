@@ -33,7 +33,7 @@ sparse.matrix <- function(i, j, x, dims = c(max(i), max(j))){
 }
 
 # Add
-`+`<-function(a, b){
+`+.sparse.matrix`<-function(a, b){
   c <- merge(a[[1]], b[[1]], by = c("i", "j"), all = TRUE, suffixes = c("1", "2"))
   c$x1[is.na(c$x1)] <- 0
   c$x2[is.na(c$x2)] <- 0
@@ -50,7 +50,7 @@ sparse.matrix <- function(i, j, x, dims = c(max(i), max(j))){
 `%*%` <- function(x, y) {
   UseMethod("%*%", x)
 }
-`%*%` <- function(a, b){
+`%*%.sparse.matrix` <- function(a, b){
   colnames(b[[1]]) <- c("i2", "j2", "x2")
   c <- merge(a[[1]], b[[1]], by.x = "j", by.y = "i2",
              all = FALSE, suffixes = c("1", "2"))
@@ -69,7 +69,7 @@ t <- function (x, ...) {
   UseMethod("t", x)
 }
 
-`t` <- function(a){
+`t.sparse.matrix` <- function(a){
   temp <- a[[1]]$i
   a[[1]]$i <- a[[1]]$j
   a[[1]]$j <- temp

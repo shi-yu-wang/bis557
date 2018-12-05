@@ -2,7 +2,7 @@
 #' @param i row indeces of non-zero elements
 #' @param j column indeces of non-zero elements
 #' @param x non-zero values
-#' @param dims the dimension of generated sparse matrix
+#' @param dim the dimension of generated sparse matrix
 #' @return a sparse.matrix
 #' @export
 

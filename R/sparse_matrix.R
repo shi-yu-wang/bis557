@@ -33,7 +33,7 @@ sparse.matrix <- function(i, j, x, dims = c(max(i), max(j))){
 }
 
 # add
-`+.sparse.matrix` <- function(a, b){
+`+` <- function(a, b){
   if (!identical(a[[2]], b[[2]]))
     stop("dimensions not match")
   c <- merge(a[[1]], b[[1]], by = c("i", "j"), all = TRUE, suffixes = c("1", "2"))
@@ -54,7 +54,7 @@ sparse.matrix <- function(i, j, x, dims = c(max(i), max(j))){
   UseMethod("%*%", x)
 }
 
-`%*%.sparse.matrix` <- function(a, b){
+`%*%` <- function(a, b){
   if ((a[[2]][2] != b[[2]][1]))
     stop("dimensions not match")
   colnames(b[[1]]) <- c("i2", "j2", "x2")
@@ -75,7 +75,7 @@ t <- function (x, ...) {
   UseMethod("t", x)
 }
 
-`t.sparse.matrix` <- function(a){
+`t` <- function(a){
   temp <- a[[1]]$i
   a[[1]]$i <- a[[1]]$j
   a[[1]]$j <- temp

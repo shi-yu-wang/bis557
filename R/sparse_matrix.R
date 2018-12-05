@@ -27,13 +27,15 @@ a <- data.frame(i = c(1, 2), j = c(1, 1), x = c(3, 1))
 b <- data.frame(i = c(1, 2, 2), j = c(1, 1, 2), x = c(4.4, 1.2, 3))
 casl_sparse_multiply(a, b)
 
-# Define class
+# define class
 sparse.matrix <- function(i, j, x, dims = c(max(i), max(j))){
   structure(list(data.frame(i = c(1, 2), j = c(1, 1), x = c(3, 1)), dims), class = "sparse.matrix")
 }
 
-# Add
-`+.sparse.matrix`<-function(a, b){
+# add
+`+.sparse.matrix` <- function(a, b){
+  if (!identical(a[[2]], b[[2]]))
+    stop("dimensions not match")
   c <- merge(a[[1]], b[[1]], by = c("i", "j"), all = TRUE, suffixes = c("1", "2"))
   c$x1[is.na(c$x1)] <- 0
   c$x2[is.na(c$x2)] <- 0
@@ -42,7 +44,8 @@ sparse.matrix <- function(i, j, x, dims = c(max(i), max(j))){
   sparse.matrix(c$i, c$j, c$x, dims = a[[2]])
 }
 
-# Multiply
+# multiply 
+# %*% is not S3 object
 `%*%.default` = .Primitive("%*%")  # keep defalut
 `%*%` = function(x,...){ 
   UseMethod("%*%",x)
@@ -50,7 +53,10 @@ sparse.matrix <- function(i, j, x, dims = c(max(i), max(j))){
 `%*%` <- function(x, y) {
   UseMethod("%*%", x)
 }
+
 `%*%.sparse.matrix` <- function(a, b){
+  if ((a[[2]][2] != b[[2]][1]))
+    stop("dimensions not match")
   colnames(b[[1]]) <- c("i2", "j2", "x2")
   c <- merge(a[[1]], b[[1]], by.x = "j", by.y = "i2",
              all = FALSE, suffixes = c("1", "2"))
@@ -64,7 +70,7 @@ sparse.matrix <- function(i, j, x, dims = c(max(i), max(j))){
   sparse.matrix(c$i, c$j, c$x, dims = c(a[[2]][1], b[[2]][2]))
 }
 
-# Transpose
+# transpose
 t <- function (x, ...) {
   UseMethod("t", x)
 }

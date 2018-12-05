@@ -8,17 +8,6 @@
 
 # 3
 ### Note: get hints from Wenfeng Zhang for this problem.
-sparse_add <- function(a, b) {
-  c <- merge(a, b, by = c("i", "j"), all = TRUE, suffixes = c("1", "2"))
-  c$x1[is.na(c$x1)] <- 0
-  c$x2[is.na(c$x2)] <- 0
-  c$x <- c$x1 + c$x2
-  c[, c("i", "j", "x")]
-}
-a <- data.frame(i = c(1, 2), j = c(1, 1), x = c(3, 1))
-b <- data.frame(i = c(1, 2, 2), j = c(1, 1, 2), x = c(4.4, 1.2, 3))
-sparse_add(a, b)
-
 # Implement a `sparse_multiply` function that multiplies two sparse matrices.
 casl_sparse_multiply <-
   function(a, b){
@@ -54,6 +43,13 @@ sparse.matrix <- function(i, j, x, dims = c(max(i), max(j))){
 }
 
 # Multiply
+`%*%.default` = .Primitive("%*%")  # keep defalut
+`%*%` = function(x,...){ 
+  UseMethod("%*%",x)
+}
+`%*%` <- function(x, y) {
+  UseMethod("%*%", x)
+}
 `%*%` <- function(a, b){
   if ((a[[2]][2] != b[[2]][1]))
     stop("dimensions not match")
@@ -82,8 +78,3 @@ t <- function (x, ...) {
   a[[2]] <- rev(a[[2]])
   return(a)
 }
-
-
-
-
-

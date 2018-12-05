@@ -51,8 +51,6 @@ sparse.matrix <- function(i, j, x, dims = c(max(i), max(j))){
   UseMethod("%*%", x)
 }
 `%*%` <- function(a, b){
-  if ((a[[2]][2] != b[[2]][1]))
-    stop("dimensions not match")
   colnames(b[[1]]) <- c("i2", "j2", "x2")
   c <- merge(a[[1]], b[[1]], by.x = "j", by.y = "i2",
              all = FALSE, suffixes = c("1", "2"))

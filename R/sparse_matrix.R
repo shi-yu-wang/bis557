@@ -2,7 +2,7 @@
 #' @param i row indeces of non-zero elements
 #' @param j column indeces of non-zero elements
 #' @param x non-zero values
-#' @param dim the dimension of generated sparse matrix
+#' @param dims the dimension of generated sparse matrix
 #' @return a sparse.matrix
 #' @export
 
@@ -28,8 +28,8 @@ b <- data.frame(i = c(1, 2, 2), j = c(1, 1, 2), x = c(4.4, 1.2, 3))
 casl_sparse_multiply(a, b)
 
 # Define the class
-sparse.matrix<-function(i,j,x,dim=c(max(i),max(j))){
-  structure(list(data.frame(i =c(1,2),j=c(1,1),x=c(3,1)),dim),class="sparse.matrix")
+sparse.matrix<-function(i,j,x,dims=c(max(i),max(j))){
+  structure(list(data.frame(i =c(1,2),j=c(1,1),x=c(3,1)),dims),class="sparse.matrix")
 }
 
 # Add
@@ -41,7 +41,7 @@ stop("dimensions not match")
   c$x2[is.na(c$x2)] <- 0
   c$x <- c$x1 + c$x2
   c[, c("i", "j", "x")]
-  sparse.matrix(c$i, c$j, c$x, dim = a[[2]])
+  sparse.matrix(c$i, c$j, c$x, dims = a[[2]])
 }
 
 # Multiply 
@@ -67,7 +67,7 @@ stop("dimensions not match")
   d <- data.frame(i = sapply(key, getElement, 1),
                   j = sapply(key, getElement, 2),
                   x = as.numeric(x))
-  sparse.matrix(c$i, c$j, c$x, dim = c(a[[2]][1], b[[2]][2]))
+  sparse.matrix(c$i, c$j, c$x, dims = c(a[[2]][1], b[[2]][2]))
 }
 
 # Transpose

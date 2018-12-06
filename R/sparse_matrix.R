@@ -8,25 +8,6 @@
 
 # 3
 ### Note: get hints from Wenfeng Zhang for this problem.
-# Implement a `sparse_multiply` function that multiplies two sparse matrices.
-casl_sparse_multiply <-
-  function(a, b){
-    colnames(b) <- c("i2", "j2", "x2")
-    c <- merge(a, b, by.x = "j", by.y = "i2",
-               all = FALSE, suffixes = c("1", "2"))
-    c$x <- c$x * c$x2
-    c$key <- paste(c$i, c$j, sep = "-")
-    x <- tapply(c$x, c$key, sum)
-    key <- strsplit(names(x), "-")
-    d <- data.frame(i = sapply(key, getElement, 1),
-                    j = sapply(key, getElement, 2),
-                    x = as.numeric(x))
-    d
-  }
-a <- data.frame(i = c(1, 2), j = c(1, 1), x = c(3, 1))
-b <- data.frame(i = c(1, 2, 2), j = c(1, 1, 2), x = c(4.4, 1.2, 3))
-casl_sparse_multiply(a, b)
-
 # Define the class
 sparse.matrix<-function(i,j,x,dims=c(max(i),max(j))){
   structure(list(data.frame(i =c(1,2),j=c(1,1),x=c(3,1)),dims),class="sparse.matrix")

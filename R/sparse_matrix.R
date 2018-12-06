@@ -38,6 +38,7 @@ sparse.matrix<-function(i,j,x,dims=c(max(i),max(j))){
 #' @param b a list for a sparse matrix
 #' @return a sparse.matrix
 #' @export
+# The function"
 sparse_matrix_add<-function(a, b){
 if (!identical(a[[2]], b[[2]]))
 stop("Incorrect dimensions")
@@ -48,6 +49,7 @@ stop("Incorrect dimensions")
   c[,c("i","j","x")]
   sparse.matrix(c$i,c$j,c$x,dims=a[[2]])
 }
+# Implement
 `+.sparse.matrix` <- function(x, y) {
   sparse_matrix_add(x, y)
 }
@@ -58,6 +60,7 @@ stop("Incorrect dimensions")
 #' @param b a list for a sparse matrix
 #' @return a sparse.matrix
 #' @export
+# The function
 sparse_matrix_multiply<- function(a, b){
 if((a[[2]][2]!=b[[2]][1]))
 stop("Incorrect dimensions")
@@ -76,6 +79,7 @@ stop("Incorrect dimensions")
 `%*%` <- function(x, y) {
   UseMethod("%*%", x)
 }
+# Implement
 `%*%.sparse.matrix` <- function(x, y) {
   sparse_matrix_multiply(x, y)
 }
@@ -84,16 +88,17 @@ stop("Incorrect dimensions")
 #' @param a a list for a sparse matrix
 #' @return a sparse.matrix
 #' @export
-sparse_matrix_transpose<- function(a){
-  temp<-a[[1]]$i
-  a[[1]]$i<-a[[1]]$j
-  a[[1]]$j<-temp
-  a[[2]]<-rev(a[[2]])
-  return(a)
+# The function
+sparse_matrix_transpose <- function(a){
+  swt<-a$mat
+  tmp<-swt$i
+  swt$i<-swt$j
+  swt$j<-tmp
+  spar_mtx<-list(mat=swt,dims = c(a$dims[2], a$dims[1])) 
+  class(spar_mtx)<-"sparse.matrix" 
+  spar_mtx
 }
-t<-function (x, ...) {
-  UseMethod("t", x)
-}
+# Implement
 `t.sparse.matrix`<-function(x) {
   sparse_matrix_transpose(x)
 }

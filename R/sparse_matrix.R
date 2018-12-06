@@ -38,7 +38,7 @@ sparse.matrix<-function(i,j,x,dims=c(max(i),max(j))){
 #' @param b a list for a sparse matrix
 #' @return a sparse.matrix
 #' @export
-# The function"
+# The function
 sparse_matrix_add<-function(a, b){
 if (!identical(a[[2]], b[[2]]))
 stop("Incorrect dimensions")

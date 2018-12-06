@@ -90,13 +90,13 @@ sparse_matrix_multiply<- function(a, b){
 #' @return a sparse.matrix
 #' @export
 # The function
-sparse_matrix_transpose <- function(a){
-  swt<-a$mat
-  tmp<-swt$i
-  swt$i<-swt$j
-  swt$j<-tmp
-  spar_mtx<-list(mat=swt,dims = c(a$dims[2], a$dims[1])) 
-  class(spar_mtx)<-"sparse.matrix" 
+sparse_matrix_transpose<-function(a) {
+  mat <- a$mat
+  swt <- mat$i
+  mat$i <- mat$j
+  mat$j <- swt
+  spar_mtx <- list(mat = mat, dims = c(a$dims[2], a$dims[1])) 
+  class(spar_mtx) <- "sparse.matrix" 
   spar_mtx
 }
 # Implement

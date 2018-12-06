@@ -42,29 +42,27 @@ stop("Incorrect dimensions")
 #' @return a sparse.matrix
 #' @export
 # The function
-sparse_matrix_multiply<-function(a, b){
-  if ((a[[2]][2]!=b[[2]][1]))
+`%*%.default` = .Primitive("%*%")  # keep defalut
+`%*%` = function(x,...){ 
+  UseMethod("%*%",x)
+}
+`%*%` <- function(x, y) {
+  UseMethod("%*%", x)
+}
+`%*%.sparse.matrix` <- function(a, b){
+  if ((a[[2]][2] != b[[2]][1]))
     stop("dimensions not match")
-  colnames(b[[1]])<-c("i2","j2","x2")
-  c <- merge(a[[1]],b[[1]],by.x = "j",by.y="i2",all = FALSE, suffixes = c("1", "2"))
+  colnames(b[[1]]) <- c("i2", "j2", "x2")
+  c <- merge(a[[1]], b[[1]], by.x = "j", by.y = "i2",
+             all = FALSE, suffixes = c("1", "2"))
   c$x <- c$x * c$x2
   c$key <- paste(c$i, c$j, sep = "-")
   x <- tapply(c$x, c$key, sum)
   key <- strsplit(names(x), "-")
-  d <- data.frame(i = sapply(key, getElement, 1),j = sapply(key, getElement, 2),x = as.numeric(x))
-  d$i<-as.numeric(d$i)
-  d$j<-as.numeric(d$j)
-  spar_mtx<-list(mat=d,dims=c(a$dims[1],b$dims[2])) 
-  class(spar_mtx) <-"sparse.matrix" 
-  spar_mtx
-}
-`%*%.default` <- .Primitive("%*%")
-`%*%` <- function(x, y) {
-  UseMethod("%*%", x)
-}
-# Implement
-`%*%.sparse.matrix`<-function(x, y) {
-  sparse_matrix_multiply(x, y)
+  d <- data.frame(i = sapply(key, getElement, 1),
+                  j = sapply(key, getElement, 2),
+                  x = as.numeric(x))
+  sparse.matrix(c$i, c$j, c$x, dims = c(a[[2]][1], b[[2]][2]))
 }
 # Transpose
 #' @description transposing a sparse matrix

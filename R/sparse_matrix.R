@@ -52,7 +52,12 @@ stop("Incorrect dimensions")
   sparse_matrix_add(x, y)
 }
 
-# Multiply 
+# Multiply
+#' @description multiplying two sparse matrices
+#' @param a a list for a sparse matrix
+#' @param b a list for a sparse matrix
+#' @return a sparse.matrix
+#' @export
 sparse_matrix_multiply<- function(a, b){
 if ((a[[2]][2] != b[[2]][1]))
 stop("Incorrect dimensions")
@@ -76,14 +81,20 @@ stop("Incorrect dimensions")
   sparse_matrix_multiply(x, y)
 }
 # Transpose
-t <- function (x, ...) {
-  UseMethod("t", x)
-}
-
-`t.sparse.matrix` <- function(a){
+#' @description transposing a sparse matrix
+#' @param a a list for a sparse matrix
+#' @return a sparse.matrix
+#' @export
+sparse_matrix_transpose<- function(a){
   temp <- a[[1]]$i
   a[[1]]$i <- a[[1]]$j
   a[[1]]$j <- temp
   a[[2]] <- rev(a[[2]])
   return(a)
+}
+t <- function (x, ...) {
+  UseMethod("t", x)
+}
+`t.sparse.matrix` <- function(x) {
+  sparse_matrix_transpose(x)
 }

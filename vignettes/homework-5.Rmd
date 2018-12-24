@@ -104,7 +104,6 @@ model %>%
   layer_activation(activation = "softmax")
 model %>% compile(loss = "categorical_crossentropy",optimizer=optimizer_rmsprop(),metrics=c("accuracy"))
 history <- model %>% fit(x_train_2, y_train_2, epochs = 10, validation_data = list(x_test_2, y_test_2))
-model %>% keras::evaluate(x_test_2, y_test_2, verbose = 0)
 
 # implement the model in the textbook while increasing the kernel size up to 3
 model <- keras_model_sequential()
@@ -131,7 +130,6 @@ model %>%
   layer_activation(activation = "softmax")
 model %>% compile(loss = "categorical_crossentropy",optimizer=optimizer_rmsprop(),metrics=c("accuracy"))
 history <- model %>% fit(x_train_2, y_train_2, epochs = 10, validation_data = list(x_test_2, y_test_2))
-model %>% keras::evaluate(x_test_2, y_test_2, verbose = 0)
 # The running time of two models is extremely long so that I wasn't able to compare them...
 
 # Question 3
